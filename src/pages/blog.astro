@@ -1,4 +1,6 @@
 ---
+import Footer from '../components/Footer.astro';
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 ---
 
 <html lang="es">
@@ -19,5 +21,13 @@
   <h1>Mi camino ninja</h1>
   <p>Aquí es donde ya no se que publicaré sobre mi viaje de aprendizaje Astro por que se me acabron las ideas.</p>
 
+   <p>Como que publicare no soy youtuber</p>
+    <ul>
+     {allPosts.map((post: any) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+    </ul> 
+<Footer />
+  <script>
+    import "../scripts/menu.js";
+  </script>
 </body>
 </html>

@@ -1,27 +1,32 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+const tags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+const pageTitle = "Índice de etiquetas";
 ---
+<BaseLayout pageTitle={pageTitle}>
+  <div class="tags">
+    {tags.map((tag) => (
+      <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+    ))}
+  </div>
+</BaseLayout>
+<style>
+  a {
+    color: #00539F;
+  }
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} >
-    <title>Astro</title>
-  </head>
- <body>
-<a href="/">Original </a>
-<a href="/about/"> El about </a>
-<a href="/blog/"> Blog</a>
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-
-
-  <h1>Son las 6:36</h1>
-  <h1>Correle</h1>
-  <h2>Por que no lo puso a las 11:59 Profe</h2>
-
-  <p>Estoy trabajando en el tutorial</p>
-  <p>pero estoy muy preocupao</p>
-  <p>haber si alcanzo</p>
-</body>
-</html>
+  .tag {
+    margin: 0.25em;
+    border: dotted 1px #a1a1a1;
+    border-radius: .5em;
+    padding: .5em 1em;
+    font-size: 1.15em;
+    background-color: #F8FCFD;
+  }
+</style>
